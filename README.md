@@ -23,6 +23,8 @@ A listing of the computer labs and their respective software can be found [here]
 ####How do we execute the simulation code and what gets returned?
 The model code is executed from the MATLAB command prompt using the __EvaluateModelEquations.m__ script. EvaluateModelEquations takes your feeding profile, solves the 
 model equations and calculates the objective function. In the MATLAB workspace, the objective function value is held in the variable __objective_value__.
+Your are trying to maximize the objective function.
+
 The solution of the model equations also gets returned to the MATLAB workspace. The simulation time vector is held in the variable __TSIM__. __TSIM__ is a 1 x T
 row vector, where T is the number of time steps. The model concentrations are held in the variable __XARR__. __XARR__ is a 7 x T array, where the rows are 
 different the model species and the columns are the time values. The model species are in the order:
@@ -35,8 +37,18 @@ different the model species and the columns are the time values. The model speci
 - X (cellmass, AU/L)
 - 7 V (volume, L)
 
+The model time scale is in arbitrary time units (AU-time) and runs from 0 to 10 AU-time. 
+
 ####How do we set the feeding profile?
 The feeding profile is a N x 2 array. The number of rows N = the number of time windows your want to consider. 
 Column 1 holds the time and column 2 holds the volumetric flow rate value. You set these values starting at __L33__ of the __EvaluateModelEquations.m__ script.
-Alternatively, you can create a feeding array in a program such as EXCEL, export it and load into the simulation. The external array must still be N x 2.
-[Really? How do I load a data array into MATLAB?](http://www.mathworks.com/help/matlab/ref/importdata.html).
+Alternatively, you can create a feeding array in a program such as EXCEL, export it and load into the simulation. The feeding array must be N x 2.
+[Really? How do I load a data array into MATLAB?](http://www.mathworks.com/help/matlab/ref/importdata.html). 
+See example profile in the __EvaluateModelEquations.m__ script.
+
+####What values are ok for my feeding profile?
+We enforce two constraints on the feed values. The biggest individual value must be less than or equal to 5.0 L/AU-time, while the maximum change between values
+must be less than or equal to 0.5 L/AU-time. If you put values into your feed array that violate these constraints they are automatically changed to meet the 
+constraints. Lastly, we have a maximum volume constraint (max volume = 100 L) that is implemented using a penalty method on the objective function. You can violate this
+constraint, but it is expensive! [What is a penalty method?](http://en.wikipedia.org/wiki/Penalty_method).
+
