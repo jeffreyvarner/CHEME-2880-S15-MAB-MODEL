@@ -35,11 +35,11 @@ feeding_profile = [
 	0 0.0  ;
 	1 0.0  ;
 	2 0.1  ;
-	3 0.1  ;
-	4 0.1  ;
+	3 0.8  ;
+	4 1.6  ;
 	5 0.2  ;
 	6 0.1  ;
-	7 0.1  ;
+	7 10.0  ;
 	8 0.1  ;
 	9 0.0  ;
 	10 0.0 ;
@@ -71,6 +71,9 @@ DF.ALPHA_CONSTANT = 2.57;
 DF.BETA_CONSTANT = 0.35;
 DF.KMU = 0.02;
 
+% Constants -
+DF.MAXIMUM_VOLUME_CONSTRAINT = 100.0;
+
 ic_vector = [
 	
 	25.0 ;	% 1 S1
@@ -91,6 +94,35 @@ Ts = 0.1;
 TSIM = TSTART:Ts:TSTOP;
 
 % Discretize the feeding profile -
+
+% Implement max flow constaint -
+MAX_FEEDING_VALUE = 5.0;
+idx_large = find(feeding_profile(:,2)>MAX_FEEDING_VALUE);
+feeding_profile(idx_large,2) = MAX_FEEDING_VALUE;
+
+% Implement max change flow constant - 
+MAX_DIFF = 0.5;
+diff_fin = diff(feeding_profile(:,2));
+idx_large_differences = find(abs(diff_fin)>MAX_DIFF);
+number_of_large_differences = length(idx_large_differences);
+FIN_FIXED = feeding_profile(:,2);
+for difference_index = 1:number_of_large_differences
+		
+	% what difference are we looking at?
+	local_difference_index = idx_large_differences(difference_index);
+	diff_fin_value = diff_fin(local_difference_index);
+
+	if (diff_fin_value>0)
+			
+		feeding_profile(local_difference_index+1,2) = MAX_DIFF + feeding_profile(local_difference_index,2);
+
+	else
+
+		feeding_profile(local_difference_index+1,2) = abs(feeding_profile(local_difference_index,2) - MAX_DIFF);
+	end
+end;
+
+% Discretize onto the simulation time scale -
 FIN = interp1(feeding_profile(:,1),feeding_profile(:,2),TSIM,'nearest');
 DF.FEED_PROFILE = FIN;
 

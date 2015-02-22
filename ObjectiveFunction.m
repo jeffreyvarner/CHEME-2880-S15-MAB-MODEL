@@ -47,8 +47,14 @@ function [obj_value,TSIM,XARR_CORRECTED] = ObjectiveFunction(TSTART,TSTOP,Ts,DF)
 	iprod = trapz(PARR);
 	final_product = XARR(5,end);
 
+	% Compute the penalty function for volume -
+	% Compute the *maximum* volume
+	max_volume = max(XARR(7,step_index));
+	MAX_VOLUME_LIMIT = DF.MAXIMUM_VOLUME_CONSTRAINT;
+	volume_violation = (MAX_VOLUME_LIMIT - max_volume);
+
 	% Compute the objective value -
-	obj_value = final_product+iprod;
+	obj_value = final_product+iprod + 100*min(0,volume_violation);
 
 	% Correct the simulation array for the extra time step -
 	XARR_CORRECTED = XARR(:,1:end-1);
