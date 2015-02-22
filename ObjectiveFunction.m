@@ -26,7 +26,7 @@
 % array.
 % ------------------------------------------------------------------------------------- %
 
-function [obj_value,TSIM,XARR] = ObjectiveFunction(TSTART,TSTOP,Ts,DF)
+function [obj_value,TSIM,XARR_CORRECTED] = ObjectiveFunction(TSTART,TSTOP,Ts,DF)
 
 	% Solve the balances -
 	[TSIM,XARR] = SolveBalanceEquations(TSTART,TSTOP,Ts,DF);
@@ -49,4 +49,7 @@ function [obj_value,TSIM,XARR] = ObjectiveFunction(TSTART,TSTOP,Ts,DF)
 
 	% Compute the objective value -
 	obj_value = final_product+iprod;
+
+	% Correct the simulation array for the extra time step -
+	XARR_CORRECTED = XARR(:,1:end-1);
 return
