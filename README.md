@@ -6,7 +6,7 @@ ____________________________________________________
 #####version: 1.0
 ____________________________________________________
 
-The model equations describe the production of a [monoclonal antibodyy](http://en.wikipedia.org/wiki/Monoclonal_antibody) in a well mixed fedbatch bioreactor.
+The model equations describe the production of a [monoclonal antibody](http://en.wikipedia.org/wiki/Monoclonal_antibody) in a well mixed fedbatch bioreactor.
 The model was adapted from:
 
 - [M. de Tremblay, M. Perrier, C. Chavarie and J. Archambault (1992) Optimization of fed-batch culture of hybridoma cells using dynamic programming: single and multi feed cases. Bioprocess Engineering 7 229-234.](http://link.springer.com/article/10.1007%2FBF00369551#page-1)
