@@ -19,6 +19,8 @@ the model files from the archive. [What the what? How do I set my path in MATLAB
 ####I don't have MATLAB. Where can I get it or do I need to buy it?
 You don't have to buy MATLAB. MATLAB is installed in the computer labs on campus (including Olin library). 
 A listing of the computer labs and their respective software can be found [here](http://mapping.cit.cornell.edu/publiclabs/map/)
+You can also execute the model code using Octave, an open source clone of MATLAB. Octave is free, and available for both Windows and OSX.
+Octave can downloaded from [Octave Forge](http://octave.sourceforge.net).
 
 ####How do we execute the simulation code and what gets returned?
 The model code is executed from the MATLAB command prompt using the __EvaluateModelEquations.m__ script. EvaluateModelEquations takes your feeding profile, solves the 
