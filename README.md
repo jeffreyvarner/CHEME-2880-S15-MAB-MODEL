@@ -47,8 +47,9 @@ Alternatively, you can create a feeding array in a program such as EXCEL, export
 See example profile in the __EvaluateModelEquations.m__ script.
 
 ####What values are ok for my feeding profile?
-We enforce two constraints on the feed values. The biggest individual value must be less than or equal to 5.0 L/AU-time, while the maximum change between values
+We enforce two constraints on the volumetric flow rate values. 
+The biggest individual value must be less than or equal to 5.0 L/AU-time, while the maximum change between values
 must be less than or equal to 0.5 L/AU-time. If you put values into your feed array that violate these constraints they are automatically changed to meet the 
 constraints. Lastly, we have a maximum volume constraint (max volume = 100 L) that is implemented using a penalty method on the objective function. You can violate this
-constraint, but it is expensive! [What is a penalty method?](http://en.wikipedia.org/wiki/Penalty_method).
+constraint, but it is expensive! [What is a penalty method?](http://en.wikipedia.org/wiki/Penalty_method)
 
