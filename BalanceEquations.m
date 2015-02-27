@@ -86,7 +86,7 @@ function [xnew] = BalanceEquations(t,step_index,xold,Ts,DF)
 	F(2,1) = D*(SIN2) - qGln*X;		% 2 S2 (glutamine)
 	F(3,1) = qLac*X;				% 3 P1 (lactate)
 	F(4,1) = qAmm*X;				% 4 P2 (ammonia)
-	F(5,1) = qAmm*X;				% 5 P3 (mab)
+	F(5,1) = qMab*X;				% 5 P3 (mab)
 	F(6,1) = (mu - kd)*X;			% 6	X (cellmass)
 	F(7,1) = 0;						% 7 V (volume)
 
